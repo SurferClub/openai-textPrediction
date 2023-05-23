@@ -18,11 +18,10 @@ export async function POST(request){
             temperature: 0.3,
             max_tokens: 60
         })
-/*         console.log(response)
- */        return NextResponse.json({message: 'hello word from api'})
+        console.log(response.data.choices)
+      return NextResponse.json({message: 'hello word from api'})
     } catch (error) {
         return NextResponse.error(error, 
             {status:500})
     }
-    
 }
