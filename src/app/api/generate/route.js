@@ -10,18 +10,24 @@ if(!configuration.apiKey)
 const openai = new OpenAIApi(configuration)
 
 export async function POST(request){
-    
-    try {
-       const response = await openai.createCompletion({
-            prompt:"dame un chiste negro",
-            model:"text-davinci-003",
-            temperature: 0.3,
-            max_tokens: 60
-        })
-        console.log(response.data.choices)
-      return NextResponse.json({message: 'hello word from api'})
-    } catch (error) {
-        return NextResponse.error(error, 
-            {status:500})
-    }
+    const body = await request.json()
+        if(!body.prompt || body.prompt.length==0){
+            return NextResponse.error(new Error("prompt is required"),{
+                status:400,
+            })
+        }
+/*     return NextResponse.json({message: " helllo word from api"})
+ */    try {
+        const response = await openai.createCompletion({
+             prompt:`dame un chiste con el tema ${body.prompt}`,
+             model:"text-davinci-003",
+             temperature: 0.3,
+             max_tokens: 60
+         })
+         return NextResponse.json(response.data.choices[0].text)   
+        } catch (error) {
+         return NextResponse.error(error, 
+             {status:500
+            })
+     } 
 }

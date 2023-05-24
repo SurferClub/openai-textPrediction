@@ -8,17 +8,17 @@ function Home() {
 
   const onSubmit =async (e)=>{
     e.preventDefault()
-    console.log(prompt)
     const response  = await fetch('/api/generate',{
       method: 'POST',
       headers: {
         'Content-type':'application/json',
       },
-      body: JSON.stringify({prompt}),
+      body: JSON.stringify({prompt})
     })
+    console.log(prompt)
     const data = await response.json()
-    setResult(data)  
     console.log(data)
+    setResult(data)
   }
 
   return (
@@ -32,10 +32,11 @@ function Home() {
         <button className='bg-green-500 p-2 rounded-md block mt-2 text-white'>
           Generate
         </button>
-        {result && (
-        <p className='text-xl font bold text-white max-w-ws my-10'>
-          {result}
-        </p>)}
+          {result && (
+               <p className='text-xl font bold text-white max-w-ws my-10'>
+                   {result}
+               </p>
+          )} 
       </form>
     </div>
   )
