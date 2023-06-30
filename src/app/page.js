@@ -6,22 +6,23 @@ function Home() {
   const [prompt, setPrompt] = useState('')
   const [result, setResult] = useState('')
 
-  const onSubmit =async (e)=>{
+  const onSubmit = async(e) => {
     e.preventDefault()
     const response  = await fetch('/api/generate',{
       method: 'POST',
       headers: {
         'Content-type':'application/json',
       },
-      body: JSON.stringify({prompt})
+      body: JSON.stringify({prompt}),
     })
-    console.log(prompt)
+/*     console.log(prompt) */
     const data = await response.json()
     console.log(data)
     setResult(data)
   }
 
   return (
+    <>
     <div className='bg-zinc-950 h-screen flex justify-center items-center'>
       <form action="" onSubmit={onSubmit}>
         <input type="text" 
@@ -39,6 +40,8 @@ function Home() {
           )} 
       </form>
     </div>
+      <div className='bg-green-500 '>hola mundo2</div>
+    </>
   )
 }
 
